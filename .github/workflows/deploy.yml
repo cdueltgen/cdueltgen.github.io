@@ -8,8 +8,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Setup SSH key
+        uses: webfactory/ssh-agent@v0.8.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v3
         with:
           submodules: true
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
