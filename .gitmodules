@@ -1,0 +1,3 @@
+[submodule "docs/holidayhack2024"]
+	path = docs/holidayhack2024
+	url = git@github.com:cdueltgen/HolidayHack2024.git

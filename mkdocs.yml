@@ -1,0 +1,40 @@
+# mkdocs.yml
+site_name: C's Blog & CTF Writeups
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: deep purple
+
+  features:
+    - navigation.tracking
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - search.suggest
+    - search.highlight
+
+plugins:
+  - blog:
+      blog_dir: .
+      post_url_format: "{date}/{slug}"
+      post_dir: blog/posts
+      blog_toc: true
+  - search
+  - tags
+
+nav:
+  - Home: index.md
+  - CTF Writeups (coming soon!):
+    - Holiday Hack 2024: holidayhack2024/index.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
