@@ -10,21 +10,22 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
-      - name: Setup SSH key
+        with:
+          fetch-depth: 0
+          submodules: true
+      - name: Setup SSH key for submodules
         uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: Checkout repository and submodules
-        uses: actions/checkout@v3
-        with:
-          submodules: true
-          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          token: ${{ secrets.DEPLOY_TOKEN }}
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
       - run: pip install -r requirements.txt
-      - run: |
+      - name: Configure Git
+        run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          mkdocs gh-deploy --force
+      - name: Deploy
+        run: mkdocs gh-deploy --force
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
