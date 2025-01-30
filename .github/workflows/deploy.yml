@@ -6,6 +6,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
       - name: Setup SSH key
@@ -17,8 +19,12 @@ jobs:
         with:
           submodules: true
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          token: ${{ secrets.DEPLOY_TOKEN }}
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
       - run: pip install -r requirements.txt
-      - run: mkdocs gh-deploy --force
+      - run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          mkdocs gh-deploy --force
