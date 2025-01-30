@@ -25,8 +25,6 @@ plugins:
 
 nav:
   - Home: index.md
-  - CTF Writeups (coming soon!):
-    - Holiday Hack 2024: holidayhack2024/index.md
 
 markdown_extensions:
   - pymdownx.highlight:
